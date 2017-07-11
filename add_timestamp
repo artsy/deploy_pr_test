@@ -1,0 +1,24 @@
+#!/bin/sh -ex
+
+message="Added another timestamp"
+branch="add-timestamp"
+file="timestamps.txt"
+username=$(git config --global user.name)
+
+git checkout -b $branch
+date >> $file
+git add $file
+git commit -m "$message"
+git push origin HEAD
+
+pr=$(hub pull-request -b artsy:master -h $username:$branch -m "$message")
+
+git checkout upstream/master
+hub merge $pr
+git push upstream HEAD:master
+
+git checkout master
+git reset --hard upstream/master
+git push origin master
+git branch -D $branch
+git push origin :$branch
