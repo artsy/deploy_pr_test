@@ -11,7 +11,7 @@ git add $file
 git commit -m "$message"
 git push origin HEAD
 
-pr=$(hub pull-request -b artsy:master -h $username:$branch -m "$message")
+pr=$(hub pull-request -b artsy/deploy_pr_test:master -h $username/deploy_pr_test:$branch -m "$message")
 
 git checkout upstream/master
 hub merge $pr
