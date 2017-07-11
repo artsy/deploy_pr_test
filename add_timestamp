@@ -3,7 +3,7 @@
 message="Added another timestamp"
 branch="add-timestamp"
 file="timestamps.txt"
-username=$(git config --global user.name)
+username=$(git config --get github.user)
 
 git checkout -b $branch
 date >> $file
